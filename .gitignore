@@ -6,4 +6,5 @@
 /zmk-config
 /build
 *.DS_Store
+asdf.cpp
 __pycache__
