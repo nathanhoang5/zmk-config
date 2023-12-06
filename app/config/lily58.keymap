@@ -9,9 +9,30 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
 
+#define DEFAULT 0
+#define LAYER_NAV 1
+#define LAYER_SYMBOL 2
+#define LAYER_GAMING 3
+#define LAYER_NUMPAD 4
+#define LAYER_NONE    5
+
+#define KEYS_L 0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41 42 50 51 52 53
+#define KEYS_R 6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 43 44 45 46 47 48 49 54 55 56 57
+
+
+&sk {  // sticky-key config
+    release-after-ms = <600>;  // release after 0.6s
+    quick-release;             // no double capitalization when rolling keys
+};
+
+&sl {  // sticky-key config
+    release-after-ms = <600>;  // release after 0.6s
+    quick-release;             // no double capitalization when rolling keys
+};
 / {
 
-	behaviors {
+
+    behaviors {
         bm: left_hand_positional_hold_tap {
             compatible = "zmk,behavior-hold-tap";
             label = "LEFT_POSITIONAL_HOLD_TAP";
@@ -25,11 +46,80 @@
             compatible = "zmk,behavior-hold-tap";
             label = "HOMEROW_MODS";
             #binding-cells = <2>;
-            tapping-term-ms = <150>;
+            tapping-term-ms = <125>;
             quick-tap-ms = <300>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
+		fhm: fast_homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            label = "FAST_HOMEROW_MODS";
+            #binding-cells = <2>;
+            tapping-term-ms = <125>;
+            quick-tap-ms = <100>;
+            flavor = "tap-preferred";
+            bindings = <&mo>, <&kp>;
+        };
+        hmr: hold_layer_right_urob {
+            compatible = "zmk,behavior-hold-tap";
+            flavor = "balanced";
+            label = "HOLD_LAYER_RIGHT";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;                // repeat on tap-into-hold
+            #binding-cells = <2>;
+            global-quick-tap-ms = <150>;         // requires PR #1387
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_L>;
+            hold-trigger-on-release;        
+        };
+        hlr: hold_tap_right_urob {
+            compatible = "zmk,behavior-hold-tap";
+            flavor = "balanced";
+            label = "HOLD_TAP_RIGHT_UROB";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;                // repeat on tap-into-hold
+            #binding-cells = <2>;
+            global-quick-tap-ms = <150>;         // requires PR #1387
+            bindings = <&mo>, <&kp>;
+            hold-trigger-key-positions = <KEYS_L>;
+            hold-trigger-on-release;        
+        };
+        hml: hold_tap_left_urob {
+            compatible = "zmk,behavior-hold-tap";
+            flavor = "balanced";
+            label = "HOLD_TAP_LEFT_UROB";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;                // repeat on tap-into-hold
+            #binding-cells = <2>;
+            global-quick-tap-ms = <150>;         // requires PR #1387
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_R>;
+            hold-trigger-on-release;        
+        };
+        hll: hold_tap_left_urob {
+            compatible = "zmk,behavior-hold-tap";
+            flavor = "balanced";
+            label = "HOLD_LAYER_LEFT";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;                // repeat on tap-into-hold
+            #binding-cells = <2>;
+            global-quick-tap-ms = <150>;         // requires PR #1387
+            bindings = <&mo>, <&kp>;
+            hold-trigger-key-positions = <KEYS_R>;
+            hold-trigger-on-release;        
+        };
+        // sshift: sticky_shift {
+        //     compatible = "zmk,behavior-hold-tap";
+        //     flavor = "balanced";
+        //     label = "HOLD_TAP_LEFT_UROB";
+        //     tapping-term-ms = <280>;
+        //     quick-tap-ms = <175>;                // repeat on tap-into-hold
+        //     #binding-cells = <2>;
+        //     global-quick-tap-ms = <150>;         // requires PR #1387
+        //     bindings = <&kp>, <&kp>;
+        //     hold-trigger-key-positions = <KEYS_R>;
+        //     hold-trigger-on-release;        
+        // };
     };
 
 	macros {
@@ -41,6 +131,102 @@
             #binding-cells = <0>;
             bindings
                 = <&macro_tap &kp MINUS &kp GT>;
+        };
+        
+        copy_mac: copy_mac {
+            label = "ZM_copy_mac";
+            compatible = "zmk,behavior-macro";
+			wait-ms = <10>;
+			tap-ms = <10>;
+            #binding-cells = <0>;
+            bindings
+                = 
+                  <&macro_press &kp LGUI>,
+                  <&macro_tap &kp C>,
+                  <&macro_release &kp LGUI>;
+        };
+
+        paste_mac: paste_mac {
+            label = "ZM_paste_mac";
+            compatible = "zmk,behavior-macro";
+			wait-ms = <10>;
+			tap-ms = <10>;
+            #binding-cells = <0>;
+            bindings
+                = 
+                  <&macro_press &kp LGUI>,
+                  <&macro_tap &kp V>,
+                  <&macro_release &kp LGUI>;
+        };
+        
+        cut_mac: cut_mac {
+            label = "ZM_cut_mac";
+            compatible = "zmk,behavior-macro";
+			wait-ms = <10>;
+			tap-ms = <10>;
+            #binding-cells = <0>;
+            bindings
+                = 
+                  <&macro_press &kp LGUI>,
+                  <&macro_tap &kp X>,
+                  <&macro_release &kp LGUI>;
+        };
+        
+        alttab_mac: alttab_mac {
+            label = "ZM_alttab_mac";
+            compatible = "zmk,behavior-macro";
+			wait-ms = <10>;
+			tap-ms = <10>;
+            #binding-cells = <0>;
+            bindings
+                = 
+                  <&macro_press &kp LALT>,
+                  <&macro_tap &kp TAB>,
+                  <&macro_release &kp LALT>;
+        };
+
+        vs_copy_close: vs_copy_close {
+             label = "ZM_vs_copy_close";
+            compatible = "zmk,behavior-macro";
+			wait-ms = <10>;
+			tap-ms = <10>;
+            #binding-cells = <0>;
+            bindings
+                = 
+                  <&macro_press &kp LGUI>,
+                  <&macro_tap &kp A>,
+                  <&macro_tap &kp C>,
+                  <&macro_tap &kp W>,
+                  <&macro_release &kp LGUI>,
+                  <&macro_press &kp LALT>,
+                  <&macro_tap &kp J>,
+                  <&macro_release &kp LALT>;           
+        };
+
+        shenter_mac: shenter_mac {
+            label = "ZM_shenter_mac";
+            compatible = "zmk,behavior-macro";
+			wait-ms = <10>;
+			tap-ms = <10>;
+            #binding-cells = <0>;
+            bindings
+                = 
+                  <&macro_press &kp LSHIFT>,
+                  <&macro_tap &kp ENTER>,
+                  <&macro_release &kp LSHIFT>;
+        };
+
+        shift_g_mac: shift_g_mac {
+            label = "ZM_shift_g_mac";
+            compatible = "zmk,behavior-macro";
+			wait-ms = <10>;
+			tap-ms = <10>;
+            #binding-cells = <0>;
+            bindings
+                = 
+                  <&macro_press &kp LSHIFT>,
+                  <&macro_tap &kp G>,
+                  <&macro_release &kp LSHIFT>;
         };
     };	
 
@@ -56,14 +242,13 @@
 // | SHIFT |  Z  |  X  |  C   |  V   |  B   |   "["  |  |  "]"  |  N   |  M    |  ,    |  .   |   /   | SHIFT |
 //                     | ALT  | GUI  | LOWER|  SPACE |  | ENTER | RAISE| BSPC  | GUI   |
 			bindings = <
-&kp GRAVE   &kp N1 &kp N2 &kp N3         &kp N4           &kp N5                               &kp N6 &kp N7           &kp N8               &kp N9       &kp N0   &kp MINUS
-&kp TAB     &kp Q  &kp W  &kp E          &kp R            &kp T                                &kp Y  &kp U            &kp I                &kp O        &kp P    &hm RALT BSLH
-&kp ESC     &kp A  &kp S  &kp D          &hm LALT F       &kp G                                &kp H  &kp J            &kp K                &kp L        &kp SEMI &kp SQT
-&kp LCTRL   &kp Z  &kp X  &kp C          &kp V            &kp B  &kp DEL           &kp CAPS    &kp N  &kp M            &hm RCTRL COMMA      &kp DOT      &kp FSLH &kp RGUI
-                          &kp LCTRL      &kp LGUI         &mo 1  &bm LSHIFT BSPC   &kp SPACE   &mo 2  &kp RET          &hm RGUI RET
+&kp GRAVE    &kp N1 &kp N2    &kp N3    &kp N4      &kp N5                                                  &kp N6            &kp N7           &kp N8               &kp N9       &kp N0   &kp MINUS
+&kp TAB      &kp Q  &kp W     &kp E     &kp R       &kp T                                                   &kp Y             &kp U            &kp I                &kp O        &kp P    &kp BSPC 
+&bm LGUI ESC &kp A  &kp S     &kp D     &hml LALT F &kp G                                                   &kp H             &kp J            &kp K                &kp L        &kp SEMI &fhm LAYER_NUMPAD SQT
+&kp LCTRL    &kp Z  &kp X     &kp C     &kp V       &kp B             &kp DEL      &kp CAPS                 &kp N             &kp M            &hm RALT COMMA       &kp DOT      &kp FSLH &kp RCTRL
+                              &kp LCTRL &kp ENTER   &sl LAYER_NAV     &sk LSHIFT   &hlr LAYER_NUMPAD SPACE  &sl LAYER_SYMBOL  &kp BSLH         &hm RGUI RET
 			>;
 
-			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 		};
 
 		lower_layer {
@@ -74,16 +259,15 @@
 // |       |  F1 |  F2 |  F3  |  F4  |  /   |        |  |       |  -   |       |  <    |  >   |       |       |
 //                     |      |      |      |        |  |       |      |       |       |
 			bindings = <
-&bt BT_CLR &bt BT_SEL 0     &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3    &bt BT_SEL 4                 &trans    &trans          &trans           &trans    &trans    &trans
-&trans     &trans           &trans            &kp LBKT          &kp RBKT        &kp STAR                     &trans    &hm RALT LPAR   &hm RCTRL RPAR   &kp LBRC  &kp RBRC  &trans
-&trans     &kp N1           &kp N2            &kp N3            &kp N4          &kp N5                       &kp N6    &kp N7          &kp N8           &kp N9    &kp N0    &kp TILDE
-&trans     &kp F1           &kp F2            &kp F3            &kp F4          &kp F5    &trans   &trans    &kp PLUS  &kp STAR        &kp EQUAL        &trans    &trans    &trans
-                                              &trans            &trans          &trans    &trans   &trans    &trans    &trans          &trans
+&bt BT_CLR &bt BT_SEL 0   &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3    &bt BT_SEL 4               &trans   &trans   &trans     &trans       &trans    &trans
+&trans     &vs_copy_close &trans       &kp LBKT     &kp RBKT        &trans                     &kp END  &kp PG_UP &kp UP    &kp PG_DN    &trans    &trans
+&trans     &trans         &trans       &kp LPAR     &hm LALT RPAR   &kp EQUAL                  &kp HOME &kp LEFT  &kp DOWN  &kp RIGHT    &kp TILDE &trans
+&trans     &trans         &trans       &kp LBRC     &kp RBRC        &trans     &trans  &trans  &trans   &kp STAR  &kp EQUAL &kp PLUS     &trans    &kp RSHIFT
+                                       &trans       &trans          &trans     &trans  &trans  &trans   &trans   &trans                              
 			>;
 
-			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 		};
-
+    
 		raise_layer {
 // ------------------------------------------------------------------------------------------------------------
 // |       |     |     |      |      |      |                   |      |        |       |       |       |       |
@@ -92,21 +276,45 @@
 // |       |     |     |   ^  |      |      |        |  |       |   &  |   %    |       |       |       |       |
 //                     |      |      |      |  DEL   |  |       |      |        |       |
 			bindings = <
-&trans    &trans    &trans    &trans         &trans     &trans                                  &trans      &trans    &trans         &trans        &trans    &trans
-&trans    &kp TILDE &kp PRCNT &kp EXCL       &kp POUND  &arrow_mac                              &kp HOME    &kp PG_UP &kp UP         &kp PG_DN     &trans    &trans
-&trans    &kp AT    &kp DLLR  &kp AMPS       &kp MINUS  &trans                                  &trans      &kp LEFT  &kp DOWN       &kp RIGHT     &trans    &trans
-&trans    &trans    &kp MINUS &kp CARET      &kp UNDER  &kp GRAVE  &trans               &trans  &trans      &kp HOME  &trans         &kp END       &trans    &trans
-                              &trans         &trans     &trans     &kp DEL              &trans  &trans      &trans    &trans
+&trans    &trans    &trans    &trans         &trans          &trans                                  &trans      &trans    &trans         &trans        &trans    &tog LAYER_GAMING
+&trans    &kp TILDE &kp PRCNT &kp EXCL       &kp POUND       &arrow_mac                              &trans      &trans    &trans         &trans        &trans    &trans
+&trans    &kp AT    &kp DLLR  &kp AMPS       &hml LALT MINUS &kp G                                   &trans      &trans    &trans         &trans        &trans    &trans
+&trans    &trans    &kp MINUS &kp CARET      &kp UNDER       &kp GRAVE  &trans               &trans  &trans      &trans    &trans         &trans        &trans    &trans
+                              &trans         &shenter_mac    &trans     &kp DEL              &trans  &trans      &trans    &trans
 			>;
 
-			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+		};
+
+
+
+		gaming_layer {
+			bindings = <
+&kp ESC     &kp N1 &kp N2 &kp N3         &kp N4           &kp N5                                          &kp N6            &kp N7           &kp N8               &kp N9       &kp N0   &trans
+&kp TAB     &kp Q  &kp W  &kp E          &kp R            &kp T                                           &kp Y             &kp U            &kp I                &kp O        &kp P    &kp BSPC 
+&kp F1      &kp A  &kp S  &kp D          &kp F            &kp G                                           &kp H             &kp J            &kp K                &kp L        &kp SEMI &kp ENTER
+&kp LSHIFT  &kp Z  &kp X  &kp C          &kp V            &kp B             &kp F3            &kp CAPS    &kp N             &kp M            &hm RALT COMMA       &kp DOT      &kp FSLH &kp RSHIFT
+                          &kp F2         &kp LCTRL        &kp SPACE         &kp LALT          &kp SPACE   &mo LAYER_SYMBOL  &kp BSLH         &hm RGUI RET
+			>;
+
+		};
+
+		numpad_layer {
+			bindings = <
+ &trans  &trans  &trans    &trans     &trans       &trans                        &trans   &trans   &trans    &trans    &trans    &trans
+ &trans  &trans  &kp N7    &kp N8     &kp N9       &trans                        &trans   &trans   &trans    &trans    &trans    &trans
+ &trans  &trans  &kp N4    &kp N5     &kp N6       &shift_g_mac                  &trans   &trans   &trans    &trans    &trans    &kp RGUI
+ &trans  &trans  &kp N1    &kp N2     &kp N3       &trans   &trans      &trans   &trans   &trans   &kp RALT  &trans    &trans    &kp RCTRL
+                           &trans     &trans       &kp N0   &trans      &trans   &trans   &trans   &trans
+			>;
+
 		};
     };
 };
+
 
 
 // &trans  &trans  &trans   &trans  &trans    &trans                        &trans   &trans   &trans    &trans    &trans    &trans
 // &trans  &trans  &trans   &trans  &trans    &trans                        &trans   &trans   &trans    &trans    &trans    &trans
 // &trans  &trans  &trans   &trans  &trans    &trans                        &trans   &trans   &trans    &trans    &trans    &trans
 // &trans  &trans  &trans   &trans  &trans    &trans   &trans      &trans   &trans   &trans   &trans    &trans    &trans    &trans
-//                          &trans  &trans    &trans   &trans      &trans   &trans   &trans   &trans
+//                          &trans  &trans    &trans   &trans      &trans   &trans   &trans   &trans                              
