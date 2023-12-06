@@ -10,6 +10,7 @@
 #include <dt-bindings/zmk/ext_power.h>
 
 #define DEFAULT 0
+<<<<<<< HEAD
 #define LAYER_NAV 1
 #define LAYER_SYMBOL 2
 #define LAYER_GAMING 3
@@ -32,6 +33,16 @@
 / {
 
 
+=======
+#define LAYER_NUMBER 1
+#define LAYER_SYMBOL 2
+#define LAYER_GAMING 3
+#define LAYER_NUMPAD 4
+#define LAYER_NAV    5
+
+/ {
+
+>>>>>>> ccb5424c186bed91e7276a7e2b66a157bd462730
     behaviors {
         bm: left_hand_positional_hold_tap {
             compatible = "zmk,behavior-hold-tap";
@@ -196,6 +207,7 @@
                   <&macro_press &kp LGUI>,
                   <&macro_tap &kp A>,
                   <&macro_tap &kp C>,
+<<<<<<< HEAD
                   <&macro_tap &kp W>,
                   <&macro_release &kp LGUI>,
                   <&macro_press &kp LALT>,
@@ -228,6 +240,14 @@
                   <&macro_tap &kp G>,
                   <&macro_release &kp LSHIFT>;
         };
+=======
+                  <&macro_release &kp LGUI>,
+                  <&macro_press &kp LALT>,
+                  <&macro_tap &kp W>,
+                  <&macro_tap &kp J>,
+                  <&macro_release &kp LALT>;           
+        };
+>>>>>>> ccb5424c186bed91e7276a7e2b66a157bd462730
     };	
 
 	
@@ -242,11 +262,19 @@
 // | SHIFT |  Z  |  X  |  C   |  V   |  B   |   "["  |  |  "]"  |  N   |  M    |  ,    |  .   |   /   | SHIFT |
 //                     | ALT  | GUI  | LOWER|  SPACE |  | ENTER | RAISE| BSPC  | GUI   |
 			bindings = <
+<<<<<<< HEAD
 &kp GRAVE    &kp N1 &kp N2    &kp N3    &kp N4      &kp N5                                                  &kp N6            &kp N7           &kp N8               &kp N9       &kp N0   &kp MINUS
 &kp TAB      &kp Q  &kp W     &kp E     &kp R       &kp T                                                   &kp Y             &kp U            &kp I                &kp O        &kp P    &kp BSPC 
 &bm LGUI ESC &kp A  &kp S     &kp D     &hml LALT F &kp G                                                   &kp H             &kp J            &kp K                &kp L        &kp SEMI &fhm LAYER_NUMPAD SQT
 &kp LCTRL    &kp Z  &kp X     &kp C     &kp V       &kp B             &kp DEL      &kp CAPS                 &kp N             &kp M            &hm RALT COMMA       &kp DOT      &kp FSLH &kp RCTRL
                               &kp LCTRL &kp ENTER   &sl LAYER_NAV     &sk LSHIFT   &hlr LAYER_NUMPAD SPACE  &sl LAYER_SYMBOL  &kp BSLH         &hm RGUI RET
+=======
+&kp GRAVE            &kp N1 &kp N2    &kp N3    &kp N4      &kp N5                                                  &kp N6            &kp N7           &kp N8               &kp N9       &kp N0   &kp MINUS
+&lt LAYER_SYMBOL TAB &kp Q  &kp W     &kp E     &kp R       &kp T                                                   &kp Y             &kp U            &kp I                &kp O        &kp P    &kp BSPC 
+&hm LGUI ESC         &kp A  &kp S     &kp D     &hm LALT F  &kp G                                                   &kp H             &kp J            &kp K                &kp L        &kp SEMI &hm RGUI SQT
+&kp LCTRL            &kp Z  &kp X     &kp C     &kp V       &kp B             &kp DEL      &kp CAPS                 &kp N             &kp M            &hm RALT COMMA       &kp DOT      &kp FSLH &kp RCTRL
+                                      &kp LCTRL &kp ENTER   &mo LAYER_NUMBER  &kp LSHIFT   &lt LAYER_NUMPAD SPACE   &mo LAYER_SYMBOL  &kp BSLH         &hm RGUI RET
+>>>>>>> ccb5424c186bed91e7276a7e2b66a157bd462730
 			>;
 
 		};
@@ -259,11 +287,19 @@
 // |       |  F1 |  F2 |  F3  |  F4  |  /   |        |  |       |  -   |       |  <    |  >   |       |       |
 //                     |      |      |      |        |  |       |      |       |       |
 			bindings = <
+<<<<<<< HEAD
 &bt BT_CLR &bt BT_SEL 0   &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3    &bt BT_SEL 4               &trans   &trans   &trans     &trans       &trans    &trans
 &trans     &vs_copy_close &trans       &kp LBKT     &kp RBKT        &trans                     &kp END  &kp PG_UP &kp UP    &kp PG_DN    &trans    &trans
 &trans     &trans         &trans       &kp LPAR     &hm LALT RPAR   &kp EQUAL                  &kp HOME &kp LEFT  &kp DOWN  &kp RIGHT    &kp TILDE &trans
 &trans     &trans         &trans       &kp LBRC     &kp RBRC        &trans     &trans  &trans  &trans   &kp STAR  &kp EQUAL &kp PLUS     &trans    &kp RSHIFT
                                        &trans       &trans          &trans     &trans  &trans  &trans   &trans   &trans                              
+=======
+&bt BT_CLR &bt BT_SEL 0     &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3    &bt BT_SEL 4                 &trans    &trans          &trans           &trans    &trans    &trans
+&trans     &vs_copy_close   &trans            &kp LBKT          &kp RBKT        &kp STAR                     &trans    &hm RALT LPAR   &hm RCTRL RPAR   &kp LBRC  &kp RBRC  &trans
+&trans     &kp N1           &kp N2            &kp N3            &hm LALT N4     &kp N5                       &kp N6    &kp N7          &kp N8           &kp N9    &kp N0    &kp TILDE
+&trans     &kp F1           &kp F2            &kp F3            &kp F4          &kp F5    &trans   &trans    &kp PLUS  &kp STAR        &kp EQUAL        &trans    &trans    &trans
+                                              &trans            &trans          &trans    &trans   &trans    &trans    &trans          &trans
+>>>>>>> ccb5424c186bed91e7276a7e2b66a157bd462730
 			>;
 
 		};
@@ -277,10 +313,17 @@
 //                     |      |      |      |  DEL   |  |       |      |        |       |
 			bindings = <
 &trans    &trans    &trans    &trans         &trans          &trans                                  &trans      &trans    &trans         &trans        &trans    &tog LAYER_GAMING
+<<<<<<< HEAD
 &trans    &kp TILDE &kp PRCNT &kp EXCL       &kp POUND       &arrow_mac                              &trans      &trans    &trans         &trans        &trans    &trans
 &trans    &kp AT    &kp DLLR  &kp AMPS       &hml LALT MINUS &kp G                                   &trans      &trans    &trans         &trans        &trans    &trans
 &trans    &trans    &kp MINUS &kp CARET      &kp UNDER       &kp GRAVE  &trans               &trans  &trans      &trans    &trans         &trans        &trans    &trans
                               &trans         &shenter_mac    &trans     &kp DEL              &trans  &trans      &trans    &trans
+=======
+&trans    &kp TILDE &kp PRCNT &kp EXCL       &kp POUND       &arrow_mac                              &kp HOME    &kp PG_UP &kp UP         &kp PG_DN     &trans    &trans
+&trans    &kp AT    &kp DLLR  &kp AMPS       &hm LALT MINUS  &trans                                  &trans      &kp LEFT  &kp DOWN       &kp RIGHT     &trans    &trans
+&trans    &trans    &kp MINUS &kp CARET      &kp UNDER       &kp GRAVE  &trans               &trans  &trans      &kp HOME  &trans         &kp END       &trans    &trans
+                              &trans         &trans          &trans     &kp DEL              &trans  &trans      &trans    &trans
+>>>>>>> ccb5424c186bed91e7276a7e2b66a157bd462730
 			>;
 
 		};
@@ -302,9 +345,15 @@
 			bindings = <
  &trans  &trans  &trans    &trans     &trans       &trans                        &trans   &trans   &trans    &trans    &trans    &trans
  &trans  &trans  &kp N7    &kp N8     &kp N9       &trans                        &trans   &trans   &trans    &trans    &trans    &trans
+<<<<<<< HEAD
  &trans  &trans  &kp N4    &kp N5     &kp N6       &shift_g_mac                  &trans   &trans   &trans    &trans    &trans    &kp RGUI
  &trans  &trans  &kp N1    &kp N2     &kp N3       &trans   &trans      &trans   &trans   &trans   &kp RALT  &trans    &trans    &kp RCTRL
                            &trans     &trans       &kp N0   &trans      &trans   &trans   &trans   &trans
+=======
+ &trans  &trans  &kp N4    &kp N5     &kp N6       &trans                        &trans   &trans   &trans    &trans    &trans    &kp RGUI
+ &trans  &trans  &kp N1    &kp N2     &kp N3       &trans   &trans      &trans   &trans   &trans   &kp RALT  &trans    &trans    &kp RCTRL
+                           &trans     &trans       &trans   &kp N0      &trans   &trans   &trans   &trans
+>>>>>>> ccb5424c186bed91e7276a7e2b66a157bd462730
 			>;
 
 		};
